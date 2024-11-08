@@ -5,8 +5,10 @@ const favicon = require('serve-favicon');
 const mongoose = require('mongoose');
 const expressHandlebars = require('express-handlebars');
 const path = require('path');
+const FileUpload = require('express-fileupload');
 
 const router = require('./router.js');
+const fileUpload = require('express-fileupload');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
@@ -21,7 +23,7 @@ mongoose.connect(dbURL).catch((err) => {
 const app = express();
 app.use(compression());
 
-
+app.use(fileUpload);
 
 app.use('/assets', express.static(path.resolve(`${__dirname}/../hosted/`)));
 app.use(bodyParser.urlencoded({
